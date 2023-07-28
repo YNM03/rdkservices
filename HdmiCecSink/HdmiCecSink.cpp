@@ -913,6 +913,19 @@ namespace WPEFramework
 			}
 
 			_instance->smConnection->sendTo(LogicalAddress(LogicalAddress::BROADCAST), MessageEncoder().encode(Standby()), 1000);
+               #if 1
+			  LOGINFO("%s: Requesting power status",__FUNCTION__);
+                 requestAudioDevicePowerStatus();
+                 usleep(500000);
+			  LOGINFO("%s: Audio system power status [%d]",__FUNCTION__, powerState);
+              //   if (powerState == DEVICE_POWER_STATE_ON){
+	               _instance->smConnection->sendTo(LogicalAddress::AUDIO_SYSTEM, MessageEncoder().encode(Standby()), 1000);	
+	      //   }else {
+
+	//		  LOGINFO("%s: Audio system power status [%d]",__FUNCTION__, powerState);
+	//	}
+	      #endif
+
        } 
 
 	   void HdmiCecSink::wakeupFromStandby()
